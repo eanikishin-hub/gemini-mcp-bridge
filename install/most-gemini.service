@@ -1,0 +1,23 @@
+[Unit]
+Description=Мост Claude <-> Gemini (gemini-mcp-bridge)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=gmost
+Group=gmost
+EnvironmentFile=/etc/most-gemini.env
+Environment=HOME=/var/lib/most-gemini
+WorkingDirectory=/var/lib/most-gemini
+ExecStart=/opt/most-gemini/venv/bin/most-gemini
+Restart=always
+RestartSec=10
+MemoryMax=400M
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/most-gemini
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
